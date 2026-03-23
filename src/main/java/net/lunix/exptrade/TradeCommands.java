@@ -14,6 +14,7 @@ public class TradeCommands {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("exptrade")
+                // /exptrade give <player> <levels|all>
                 .then(literal("give")
                         .then(argument("player", EntityArgumentType.player())
                                 .then(argument("levels", IntegerArgumentType.integer(1))
@@ -35,6 +36,29 @@ public class TradeCommands {
                                 )
                         )
                 )
+                // /exptrade request <player> <levels|all>
+                .then(literal("request")
+                        .then(argument("player", EntityArgumentType.player())
+                                .then(argument("levels", IntegerArgumentType.integer(1))
+                                        .executes(ctx -> {
+                                            ServerPlayerEntity requester = ctx.getSource().getPlayerOrThrow();
+                                            ServerPlayerEntity target = EntityArgumentType.getPlayer(ctx, "player");
+                                            int levels = IntegerArgumentType.getInteger(ctx, "levels");
+                                            TradeManager.request(requester, target, levels, false);
+                                            return 1;
+                                        })
+                                )
+                                .then(literal("all")
+                                        .executes(ctx -> {
+                                            ServerPlayerEntity requester = ctx.getSource().getPlayerOrThrow();
+                                            ServerPlayerEntity target = EntityArgumentType.getPlayer(ctx, "player");
+                                            TradeManager.request(requester, target, 0, true);
+                                            return 1;
+                                        })
+                                )
+                        )
+                )
+                // /exptrade accept
                 .then(literal("accept")
                         .executes(ctx -> {
                             ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
@@ -42,6 +66,7 @@ public class TradeCommands {
                             return 1;
                         })
                 )
+                // /exptrade decline
                 .then(literal("decline")
                         .executes(ctx -> {
                             ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
@@ -49,6 +74,7 @@ public class TradeCommands {
                             return 1;
                         })
                 )
+                // /exptrade cancel
                 .then(literal("cancel")
                         .executes(ctx -> {
                             ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
@@ -56,17 +82,20 @@ public class TradeCommands {
                             return 1;
                         })
                 )
+                // /exptrade threshold <levels>
                 .then(literal("threshold")
                         .then(argument("levels", IntegerArgumentType.integer(0))
                                 .executes(ctx -> {
                                     ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
                                     int threshold = IntegerArgumentType.getInteger(ctx, "levels");
                                     player.setAttached(PlayerAttachments.THRESHOLD, threshold);
-                                    player.sendMessage(Text.literal("§aYour XP trade threshold set to §e" + threshold + " §alevels."), false);
+                                    player.sendMessage(Text.literal("§aYour XP trade threshold set to §e"
+                                            + threshold + " §alevels."), false);
                                     return 1;
                                 })
                         )
                 )
+                // /exptrade config ... (admin only)
                 .then(literal("config")
                         .requires(src -> src.hasPermissionLevel(2))
                         .then(literal("timeout")
@@ -75,7 +104,8 @@ public class TradeCommands {
                                             int seconds = IntegerArgumentType.getInteger(ctx, "seconds");
                                             ModConfig.get().timeoutSeconds = seconds;
                                             ModConfig.save();
-                                            ctx.getSource().sendFeedback(() -> Text.literal("§aTrade timeout set to §e" + seconds + " §aseconds."), true);
+                                            ctx.getSource().sendFeedback(() -> Text.literal(
+                                                    "§aTrade timeout set to §e" + seconds + " §aseconds."), true);
                                             return 1;
                                         })
                                 )
@@ -83,7 +113,8 @@ public class TradeCommands {
                         .then(literal("reload")
                                 .executes(ctx -> {
                                     ModConfig.load();
-                                    ctx.getSource().sendFeedback(() -> Text.literal("§aexpTrade config reloaded."), true);
+                                    ctx.getSource().sendFeedback(() -> Text.literal(
+                                            "§aexpTrade config reloaded."), true);
                                     return 1;
                                 })
                         )
