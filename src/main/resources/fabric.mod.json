@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "exptrade",
+  "version": "${version}",
+  "name": "expTrade",
+  "description": "Trade XP levels between players using commands.",
+  "authors": ["Lunixialive"],
+  "contact": {
+    "sources": "https://github.com/LunixiaLIVE/expTrade"
+  },
+  "license": "MIT",
+  "environment": "server",
+  "entrypoints": {
+    "main": ["net.lunix.exptrade.Exptrade"]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.18.2",
+    "fabric-api": "*",
+    "minecraft": "~1.21.11"
+  }
+}
