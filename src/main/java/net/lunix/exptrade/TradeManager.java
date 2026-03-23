@@ -2,7 +2,11 @@ package net.lunix.exptrade;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -166,10 +170,10 @@ public class TradeManager {
         String desc = all ? "all their XP" : levels + " level(s) ("
                 + rawXpCost(giver.experienceLevel, levels) + " raw XP)";
         giver.sendMessage(Text.literal("§aOffer sent to §e" + receiver.getName().getString()
-                + "§a. They have §e" + ModConfig.get().timeoutSeconds + " §aseconds to respond."), false);
-        receiver.sendMessage(Text.literal("§e" + giver.getName().getString()
-                + " §awants to give you §e" + desc
-                + "§a. Use §f/exptrade accept §aor §f/exptrade decline§a."), false);
+                + "§a. They have §e" + ModConfig.get().timeoutSeconds + " §aseconds to respond. ")
+                .append(cancelButton()), false);
+        receiver.sendMessage(buildResponderMessage("§e" + giver.getName().getString()
+                + " §awants to give you §e" + desc + "§a."), false);
     }
 
     /**
@@ -200,10 +204,10 @@ public class TradeManager {
         String desc = all ? "all your XP" : levels + " level(s) (~"
                 + rawXpCost(target.experienceLevel, levels) + " raw XP at your current level)";
         requester.sendMessage(Text.literal("§aRequest sent to §e" + target.getName().getString()
-                + "§a. They have §e" + ModConfig.get().timeoutSeconds + " §aseconds to respond."), false);
-        target.sendMessage(Text.literal("§e" + requester.getName().getString()
-                + " §ais requesting §e" + desc
-                + " §afrom you. Use §f/exptrade accept §aor §f/exptrade decline§a."), false);
+                + "§a. They have §e" + ModConfig.get().timeoutSeconds + " §aseconds to respond. ")
+                .append(cancelButton()), false);
+        target.sendMessage(buildResponderMessage("§e" + requester.getName().getString()
+                + " §ais requesting §e" + desc + " §afrom you."), false);
     }
 
     /**
@@ -297,5 +301,40 @@ public class TradeManager {
     private static void notifyBoth(ServerPlayerEntity a, ServerPlayerEntity b, String msgA, String msgB) {
         a.sendMessage(Text.literal(msgA), false);
         b.sendMessage(Text.literal(msgB), false);
+    }
+
+    /** Builds the clickable accept/decline prompt sent to the responder. */
+    private static MutableText buildResponderMessage(String context) {
+        return Text.literal(context + " ")
+                .append(Text.literal("[Accept]")
+                        .styled(s -> s
+                                .withColor(Formatting.GREEN)
+                                .withBold(true)
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/exptrade accept"))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                        Text.literal("Click to accept this trade")))
+                        )
+                )
+                .append(Text.literal(" "))
+                .append(Text.literal("[Decline]")
+                        .styled(s -> s
+                                .withColor(Formatting.RED)
+                                .withBold(true)
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/exptrade decline"))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                        Text.literal("Click to decline this trade")))
+                        )
+                );
+    }
+
+    /** Builds a clickable [Cancel] button for the initiator's confirmation message. */
+    private static MutableText cancelButton() {
+        return Text.literal("[Cancel]")
+                .styled(s -> s
+                        .withColor(Formatting.GRAY)
+                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/exptrade cancel"))
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                Text.literal("Click to cancel your trade")))
+                );
     }
 }
