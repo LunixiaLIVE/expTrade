@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "expTrade",
   "description": "Trade XP levels between players using commands.",
-  "authors": ["Lunixialive"],
+  "authors": ["LunixiaLIVE"],
   "contact": {
     "sources": "https://github.com/LunixiaLIVE/expTrade"
   },
