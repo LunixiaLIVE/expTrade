@@ -1,0 +1,13 @@
+name: expTrade
+version: '${version}'
+main: net.lunix.exptrade.ExpTradePaper
+api-version: '1.21'
+description: Player-to-player XP trading with a queue-based GUI
+commands:
+  exptrade:
+    description: XP trading system
+    usage: /exptrade <give|request|accept|decline|cancel|pending|threshold|admin|config>
+permissions:
+  exptrade.admin:
+    description: Access to expTrade admin commands
+    default: op

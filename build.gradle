@@ -1,0 +1,38 @@
+plugins {
+    id "java"
+}
+
+group = "net.lunix"
+version = mod_version
+
+repositories {
+    maven { url = "https://repo.papermc.io/repository/maven-public/" }
+    maven { url = "https://repo.maven.apache.org/maven2/" }
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:${paper_version}"
+    implementation "com.google.code.gson:gson:2.10.1"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 21
+}
+
+processResources {
+    inputs.property "version", project.version
+    filteringCharset = "UTF-8"
+    filesMatching("plugin.yml") {
+        expand(["version": project.version])
+    }
+}
+
+jar {
+    archiveFileName = "${archives_base_name}-${mod_version}_MC-${minecraft_version}-paper.jar"
+}
