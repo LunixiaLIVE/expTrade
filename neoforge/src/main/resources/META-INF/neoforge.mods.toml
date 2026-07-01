@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+    modId = "exptrade"
+    version = "${version}"
+    displayName = "expTrade"
+    description = "Player-to-player XP trading system with offer, request, and admin transfer support."
+
+[[dependencies.exptrade]]
+    modId = "neoforge"
+    type = "required"
+    versionRange = "[26.1,26.2)"
+    ordering = "NONE"
+    side = "BOTH"
+
+[[dependencies.exptrade]]
+    modId = "minecraft"
+    type = "required"
+    versionRange = "[26.1,26.2)"
+    ordering = "NONE"
+    side = "BOTH"
+
