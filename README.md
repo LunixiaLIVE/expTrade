@@ -28,6 +28,7 @@
 | [`multi_26.2`](https://github.com/LunixiaLIVE/expTrade/tree/multi_26.2) | 26.2.x | Fabric · NeoForge | Fabric API *(Fabric only)* | [📄](https://github.com/LunixiaLIVE/expTrade/blob/multi_26.2/CHANGELOG.md) |
 | [`multi_26.1`](https://github.com/LunixiaLIVE/expTrade/tree/multi_26.1) | 26.1, 26.1.1, 26.1.2 | Fabric · NeoForge | Fabric API *(Fabric only)* | [📄](https://github.com/LunixiaLIVE/expTrade/blob/multi_26.1/CHANGELOG.md) |
 | [`multi_1.21.11`](https://github.com/LunixiaLIVE/expTrade/tree/multi_1.21.11) | 1.21.11 | Fabric · NeoForge | Fabric API *(Fabric only)* | [📄](https://github.com/LunixiaLIVE/expTrade/blob/multi_1.21.11/CHANGELOG.md) |
+| [`multi_1.21.9`](https://github.com/LunixiaLIVE/expTrade/tree/multi_1.21.9) | 1.21.9–1.21.10 | Fabric · NeoForge | Fabric API *(Fabric only)* | [📄](https://github.com/LunixiaLIVE/expTrade/blob/multi_1.21.9/CHANGELOG.md) |
 | [`plugin_1.21.11`](https://github.com/LunixiaLIVE/expTrade/tree/plugin_1.21.11) | 1.21.11 | Paper | Paper (no extra deps) | — |
 
 > [!TIP]
