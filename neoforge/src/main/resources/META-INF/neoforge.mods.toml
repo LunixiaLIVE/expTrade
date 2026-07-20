@@ -7,6 +7,7 @@ license = "MIT"
     version = "${version}"
     displayName = "expTrade"
     description = "Player-to-player XP trading system with offer, request, and admin transfer support."
+    displayURL = "https://github.com/LunixiaLIVE/Lunixia-Minecraft-QOL-Mods"
 
 [[dependencies.exptrade]]
     modId = "neoforge"
