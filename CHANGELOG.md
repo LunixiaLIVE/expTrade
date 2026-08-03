@@ -5,6 +5,13 @@ Works on client and server.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning per [SemVer](https://semver.org/).
 
+## [1.3.1] — 2026-08-03
+
+Packaging only. No gameplay changes.
+
+### Changed
+- Renamed the combined output jar from `-universal` to `-multi` for consistent naming across the mod suite.
+
 ## [1.3.0] — 2026-07-01
 
 First multi-loader release for **Minecraft 26.x** (the 26.1.x line).
